@@ -13,10 +13,18 @@
     font-size: 0;
 }
 
-.square {
+.field div {
     width: 100px;
     height: 100px;
     display: inline-block;
     border: 1px solid black;
     box-sizing: border-box;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
 }
