@@ -22,9 +22,30 @@
 }
 
 .blue {
-    background-color: blue;
+    background: url('img/O.png');
+    height: 100px;
+    width: 100px;
 }
 
 .red {
-    background-color: red;
+    background: url('img/X.png');
+}
+
+.players {
+    display: block;
+    margin: 0 auto;
+    height: 100px;
+    width: 250px;
+    background-color: rgb(169, 209, 169);
+}
+
+.players__playerA, .players__playerB {
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times;
+    position: relative;
+    top: 15px;
+    left: 25px;
+    font-style: italic;
+    font-weight: bold;
 }

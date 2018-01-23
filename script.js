@@ -1,35 +1,66 @@
 document.addEventListener('DOMContentLoaded', function(){
 
     var square = document.querySelectorAll('.field div');  //array with all squares(0-8)
-
     var currentPlayer;
     var empty;
+    var playerRed;
+    var playerBlue;
+    var playerRedScore = 0;
+    var playerBlueScore = 0;
 
+
+    playerNameRed();
+    playerNameBlue();
     startGame();
 
+    function playerNameRed(){
+        playerRed = prompt('Please enter Player 1 name:');
+        if(playerRed === ''){
+            playerRed = 'Red';
+        };
+        document.querySelector('.players__playerA').innerHTML = playerRed + ' score: ' + playerRedScore;
+    };
+
+    function playerNameBlue(){
+        playerBlue = prompt('Please enter Player 2 name:','');
+        if(playerBlue === ''){
+            playerBlue = 'Blue';
+        };
+        document.querySelector('.players__playerB').innerHTML = playerBlue + ' score: ' + playerBlueScore;
+    };
 
     function startGame(){
+        currentPlayer = 'red';
         empty = 9;
-        for(i=0; i<square.length; i++){
-            currentPlayer = 'red';
-            square[i].addEventListener('click', function clickedElement(){
-                this.classList.add(currentPlayer);
-                empty--;
-                if(currentPlayer === 'red'){
-                    currentPlayer = 'blue';
-                } else {
-                    currentPlayer = 'red';
-                }
-                this.removeEventListener('click', clickedElement);
-                winner();
-
-                setTimeout(function(){
-                    if(empty === 0){
-                        alert('It is a tie!');
-                    }
-                }, 200);
-            });
+        for(i=0; i<9; i++){
+            square[i].removeAttribute('class');
         };
+        clickListener();
+    };
+
+    function clickListener(){
+        square.forEach(
+            function(ev){
+                ev.addEventListener('click', clicked);
+            }
+        )
+    };
+
+    function clicked(){
+        this.classList.add(currentPlayer);
+        this.removeEventListener('click', clicked);
+        if(currentPlayer === 'red'){
+            currentPlayer = 'blue'
+        }else{
+            currentPlayer = 'red'
+        };
+        empty--;
+        winner();
+        if(empty === 0){
+            alert("It is a tie!");
+            startGame();
+        }
+        console.log(empty);
     };
 
     function winner(){
@@ -49,10 +80,19 @@ document.addEventListener('DOMContentLoaded', function(){
         ];
 
         if(winFields.includes('redredred')){
-            alert('red wins!')
+            alert(playerRed +' wins!');
+            startGame();
+            playerRedScore++;
+            document.querySelector('.players__playerA').innerHTML = playerRed + ' score: ' + playerRedScore;
+
         }else if(winFields.includes('blueblueblue')){
-            alert('blue wins!')
-        }
+            alert(playerBlue + ' wins!');
+            startGame();
+            playerBlueScore++;
+            document.querySelector('.players__playerB').innerHTML = playerBlue + ' score: ' + playerBlueScore;
+        }else{
+            return
+        };
     };
 
 });
